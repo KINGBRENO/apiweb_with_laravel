@@ -15,6 +15,7 @@ class UsuarioController extends Controller
         return view('adicionar');
     }
     
+    
     public function buscar(Request $request) {
         
         $dado = $request->validate([
@@ -32,7 +33,6 @@ class UsuarioController extends Controller
         }
     }
     
-    
     public function inserir (request $request) {
         
         $validatedData = $request->validate([
@@ -42,14 +42,14 @@ class UsuarioController extends Controller
         ]);
     
         // Inserir os dados no banco de dados
-        $store = Usuario::create([
+        $usuario = Usuario::create([
             'cpf' => $validatedData['cpf'],
             'nome' => $validatedData['nome'],
             'data_nascimento' => $validatedData['data_nascimento'],
         ]);
         
-        if ($store != NULL)
-            return view('usuario', ['usuario' => $store]);
+        if ($usuario)
+            echo "Dados de $usuario->nome foram inseridos com sucesso";
         else
             echo 'Ocorreu algum erro';
         
