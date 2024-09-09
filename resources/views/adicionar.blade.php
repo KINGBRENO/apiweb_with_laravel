@@ -11,7 +11,7 @@
         @csrf
 
         <label for="cpf">CPF:</label>
-        <input type="text" name = "cpf" id = "Nome" placeholder = "digite seu cpf: "> <br><br>
+        <input type="text" name = "cpf" id = "cpf" placeholder = "digite seu cpf: "> <br><br>
 
         <label for="nome">Nome:</label>
         <input type="text" name = "nome" id = "nome" placeholder = "digite seu nome: " required><br><br>
@@ -27,9 +27,22 @@
     <h2>
     <form nome = "Listar" id = "Listar"  method = "GET" action = "/usuarios_listar" >
     
-    <input type="submit" value = "Listar">
+    <input type="submit" value = "Listar Cadastrados">
     </form>
     </h2>
+
+    <h3>
+    <form nome = "buscar" id = "busca"  method = "GET" action = "/buscar" >
+
+        <b1>
+            Busca por CPF
+        </b1>
+        <input type="text" name = "cpf" id = "cpf" placeholder = "digite o cpf a ser buscado: ">
+        <input type="submit" value = "buscar">
+        
+        <br><br>
+        </form>
+    </h3>
     
 </body>
 </html>

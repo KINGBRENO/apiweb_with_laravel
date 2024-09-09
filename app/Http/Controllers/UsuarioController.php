@@ -11,17 +11,34 @@ class UsuarioController extends Controller
         
         return Usuario::all();
     }
-    public function index(Request $request) {
+    public function index() {
         return view('adicionar');
     }
-
-
+    
+    public function buscar(Request $request) {
+        
+        $dado = $request->validate([
+            'cpf' => 'required|numeric'
+        ]);
+    
+        // Buscar o usuário pelo CPF
+        $usuario = Usuario::where('cpf', $dado['cpf'])->first(); 
+    
+        // Verificar se o usuário foi encontrado
+        if ($usuario != NULL) {
+            echo "Usuário encontrado: CPF: $usuario->cpf  Nome - $usuario->nome";
+        } else {
+            echo "Não foi possível encontrar um usuário correspondente";
+        }
+    }
+    
+    
     public function inserir (request $request) {
         
         $validatedData = $request->validate([
             'cpf' => 'required|numeric', // CPF 
             'nome' => 'required|string|max:255', //nome
-            'data_nascimento' => 'required|date|before:today', // Data no formato correto e antes de hoje
+            'data_nascimento' => 'required|date|before:today', // Data no formato e anterior a hoje
         ]);
     
         // Inserir os dados no banco de dados
@@ -31,8 +48,8 @@ class UsuarioController extends Controller
             'data_nascimento' => $validatedData['data_nascimento'],
         ]);
         
-        if($store)
-            echo "Dados de $store->nome foram inseridos com sucesso";
+        if ($store != NULL)
+            return view('usuario', ['usuario' => $store]);
         else
             echo 'Ocorreu algum erro';
         
